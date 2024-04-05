@@ -17,7 +17,7 @@ curdmember/urls.py
 def addUser(request):
     return 0
 
-def UserInfo(request):
+def userInfo(request):
     return 0
 
 def changePwd(request):
