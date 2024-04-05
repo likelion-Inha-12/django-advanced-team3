@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # App for Team3
+    'crudmember',
+    # Basic App
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
