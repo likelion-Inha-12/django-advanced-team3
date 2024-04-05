@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import json
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from .models import *
 
 '''
@@ -19,7 +20,21 @@ def addUser(request):
 def userInfo(request):
     return 0
 
-def changePwd(request):
+def changePwd(request, pk):
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_pwd = data.get('new_password', None)
+    
+    if new_pwd:
+        post = get_object_or_404(Post, personal_key=pk)
+        post.password = new_pwd
+        post.save()
+
+        return JsonResponse({'message' : f'비밀번호가 변경되었습니다. 새로운 비밀번호는 {new_pwd}입니다.'})
+    else:
+        return JsonResponse({'message':'비밀번호 변경이 실패하였습니다.'})
+        
     return 0
 
 def delUser(request):

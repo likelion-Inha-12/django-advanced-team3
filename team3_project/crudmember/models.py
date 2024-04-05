@@ -6,3 +6,5 @@ class Post(models.Model):
     is_leader = models.BooleanField() # 대표 여부
     hearts = models.IntegerField() # 하트 수
     
+
+   
