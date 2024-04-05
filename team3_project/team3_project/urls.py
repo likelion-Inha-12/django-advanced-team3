@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from crudmember import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('members/', include('crudmember.urls'))
