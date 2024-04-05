@@ -4,8 +4,7 @@ from django.http import JsonResponse
 from .models import *
 
 '''
-curdmember/urls.py 
-
+crudmember/urls.py 
     path('addUser/', views.addUser), #1. 회원 생성
     path('<int:pk>/', views.userInfo), #2. 회원 정보 조회
     path('changepwd/', views.changePwd), #회원 정보 수정
@@ -35,4 +34,3 @@ def represent(request):
 def allUser(request):
     return 0
 
-# Create your views here.
