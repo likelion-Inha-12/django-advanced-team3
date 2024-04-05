@@ -35,13 +35,21 @@ def changePwd(request, pk):
     else:
         return JsonResponse({'message':'비밀번호 변경이 실패하였습니다.'})
         
-    return 0
 
 def delUser(request):
     return 0
 
-def userHeart(request):
-    return 0
+def userHeart(request, pk):
+    
+    if request.method == 'POST':
+
+        post = get_object_or_404(Post, personal_key=pk)
+        post.hearts += post.hearts
+        post.save()
+
+        return JsonResponse({'message' : f'회원 {post.user_name}의 하트 수가 1개 증가하였습니다. \n 회원 {post.user_name}의 하트는 총 {post.hearts}개 입니다.'})
+    else:
+        return JsonResponse({'message':'동작 실패하였습니다.'})
 
 def represent(request):
     return 0
