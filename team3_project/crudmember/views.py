@@ -118,7 +118,7 @@ def represent(request,pk):
                 post.save()
                 data = {"message" : f"{post.name}을 대표로 임명하였습니다."
                         }
-                return JsonResponse(data, status=200)
+              
 
 def allUser(request):
     if request.method == 'GET':
