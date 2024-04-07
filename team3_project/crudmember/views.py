@@ -52,7 +52,7 @@ def userInfo(request, pk): # 입력값: id (personal_key) -> 출력값: id, emai
     if request.method == 'GET':
         post = get_object_or_404(Post, pk = pk)
         data = {
-            'id' : post.personal_key,
+            'id' : post.pk,
             'email' : post.email,
             'is_leader' : post.is_leader,
             'hearts' : post.hearts
