@@ -61,9 +61,9 @@ def userInfo(request, pk): # 입력값: id (personal_key) -> 출력값: id, emai
         return JsonResponse({'message':'GET 요청만 허용됩니다.'})
 
 def changePwd(request, pk):
-    if request.method == 'POST':
+    if request.method == 'PUT':
         data = json.loads(request.body)
-        new_pwd = data.get('new_password', None)
+        new_pwd = data.get('new_password')
     
         if new_pwd:
             post = get_object_or_404(Post, pk=pk)
@@ -72,18 +72,16 @@ def changePwd(request, pk):
 
             return JsonResponse({'message' : f'비밀번호가 변경되었습니다. 새로운 비밀번호는 {new_pwd}입니다.'})
         else:
-            return JsonResponse({'message':'비밀번호 변경이 실패하였습니다.'})
+            return JsonResponse({'message':'비밀번호 변경에 실패하였습니다.'})
     else:
-        return JsonResponse({'message':'GET 요청만 허용됩니다.'})
+        return JsonResponse({'message':'PUT 요청만 허용됩니다.'})
         
 
 def delUser(request):
     return 0
 
 def userHeart(request, pk):
-    
-    if request.method == 'POST':
-
+    if request.method == 'PUT':
         post = get_object_or_404(Post, pk=pk)
         post.hearts = post.hearts+1
         post.save()
