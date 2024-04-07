@@ -99,7 +99,7 @@ def userHeart(request, pk):
         return JsonResponse({'message':'동작 실패하였습니다.'})
 
 def represent(request,pk):
-    if request.method ==" POST":       
+    if request.method =="PUT":       
         post = get_object_or_404(Post, pk=pk)
         if post.is_leader == True:
             post.is_leader = False
@@ -115,12 +115,14 @@ def represent(request,pk):
                 return JsonResponse(data, status=400)
                
             else:
-                post.is_Leader = True
+                post.is_leader = True
                 post.save()
                 data = {"message" : f"{post.user_name}을 대표로 임명하였습니다."
                         }
                 
                 return JsonResponse(data, status=200)
+    else:
+        return JsonResponse({'message':'Put 요쳥만 허용됩니다'})
 def allUser(request):
     if request.method == 'GET':
         post = Post.objects.all()
