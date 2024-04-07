@@ -74,7 +74,7 @@ def userHeart(request, pk):
     if request.method == 'POST':
 
         post = get_object_or_404(Post, pk=pk)
-        post.hearts += post.hearts
+        post.hearts = post.hearts+1
         post.save()
 
         return JsonResponse({'message' : f'회원 {post.user_name}의 하트 수가 1개 증가하였습니다. \n 회원 {post.user_name}의 하트는 총 {post.hearts}개 입니다.'})
