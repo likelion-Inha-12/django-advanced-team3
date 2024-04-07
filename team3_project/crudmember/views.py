@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 import json
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404
 from .models import *
 
 '''
@@ -109,7 +109,8 @@ def represent(request,pk):
             }
             return JsonResponse(data, status=200)
         else:
-            if True in Post.objects.values_list('is_leader',flat=True):
+            leaderlist=get_list_or_404(Post, is_leader=True)
+            if len(leaderlist) >=2:
                 data = {"message" : "대표는 2명이상일 수 없습니다."}
                 return JsonResponse(data, status=400)
                
