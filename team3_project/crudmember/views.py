@@ -111,7 +111,6 @@ def represent(request,pk):
         else:
             if True in Post.objects.values_list('is_leader',flat=True):
                 data = {"message" : "대표는 2명이상일 수 없습니다."}
-                return JsonResponse(data, status=400)
 
                
             else:
