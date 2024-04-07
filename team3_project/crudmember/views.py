@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -28,6 +28,8 @@ crudmember/models.py
 def addUser(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+
+        name = data.get('name')
         email = data.get('email')
         is_leader = data.get('is_leader')
         hearts = data.get('hearts')
@@ -46,8 +48,21 @@ def addUser(request):
         return JsonResponse({'message':'success'})
     return JsonResponse({'message' : 'POST 요청만 허용됩니다.'})
 
-def userInfo(request):
-    return 0
+
+
+	    
+
+def userInfo(request, personal_key): # 입력값: id (personal_key) -> 출력값: id, email, 대표 여부, 하트 수
+    if request.method == 'GET':
+        post = get_object_or_404(Post, personal_key = personal_key)
+        data = {
+            'id' : post.personal_key,
+            'email' : post.email,
+            'is_leader' : post.is_leader,
+            'hearts' : post.hearts
+        }
+    
+        
 
 
 def changePwd(request, pk):
