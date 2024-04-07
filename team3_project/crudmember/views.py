@@ -59,7 +59,9 @@ def userInfo(request, personal_key): # 입력값: id (personal_key) -> 출력값
             'is_leader' : post.is_leader,
             'hearts' : post.hearts
         }
-    
+        return JsonResponse(data, status = 200)
+    else:
+        return JsonResponse({'meassage':'GET 요청만 허용됩니다.'})
 
 def changePwd(request, pk):
 
