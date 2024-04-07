@@ -13,12 +13,45 @@ crudmember/urls.py
     path('userHeart/<int:pk>/', views.userHeart), #5. 하트 누르기
     path('rpsnt/', views.represent), #6. 대표로 임명하기, 대표 자격 박탈시키기
     path('allUser/', views.allUser),#7. 모든 회원들의 정보 조회 
+
+crudmember/models.py
+
+    class Post(models.Model):
+    personal_key = models.IntegerField() # id(pk)
+    email = models.CharField(max_length=100) # 100글자가 최대인 문자열
+    is_leader = models.BooleanField() # 대표 여부
+    hearts = models.IntegerField() # 하트 수
+    password = models.CharField(max_length=100) # 비밀번호
+    user_name = models.CharField(max_length=100) #회원 이름
+
 '''
 def addUser(request):
-    return 0
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        pk = data.get('personal_key')
+        email = data.get('email')
+        is_leader = data.get('is_leader')
+        hearts = data.get('hearts')
+        password = data.get('password')
+        user_name = data.get('user_name')
+
+        post = Post(
+            data = data,
+            pk = pk,
+            email = email,
+            is_leader = is_leader,
+            hearts = hearts,
+            password = password,
+            user_name = user_name
+        )
+        post.save()
+
+        return JsonResponse({'message':'success'})
+    return JsonResponse({'message' : 'POST 요청만 허용됩니다.'})
 
 def userInfo(request):
     return 0
+
 
 def changePwd(request, pk):
 
