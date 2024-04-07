@@ -10,7 +10,7 @@
 ![func3](./image/func3.png)
 
 4. 회원 삭제
-
+![func4](./image/func4.png)
 
 5. 하트 누르기
 ![func5](./image/func5.png)
