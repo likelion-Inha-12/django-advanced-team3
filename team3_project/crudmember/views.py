@@ -57,7 +57,7 @@ def changePwd(request, pk):
         new_pwd = data.get('new_password', None)
     
     if new_pwd:
-        post = get_object_or_404(Post, personal_key=pk)
+        post = get_object_or_404(Post, pk=pk)
         post.password = new_pwd
         post.save()
 
@@ -73,7 +73,7 @@ def userHeart(request, pk):
     
     if request.method == 'POST':
 
-        post = get_object_or_404(Post, personal_key=pk)
+        post = get_object_or_404(Post, pk=pk)
         post.hearts += post.hearts
         post.save()
 
