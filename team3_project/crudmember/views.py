@@ -29,7 +29,6 @@ def addUser(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
-        name = data.get('name')
         email = data.get('email')
         is_leader = data.get('is_leader')
         hearts = data.get('hearts')
@@ -37,8 +36,6 @@ def addUser(request):
         user_name = data.get('user_name')
 
         post = Post(
-
-            name = name,
             email = email,
             is_leader = is_leader,
             hearts = hearts,
