@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
 from django.http import JsonResponse
 from .models import *
@@ -14,10 +14,38 @@ crudmember/urls.py
     path('allUser/', views.allUser),#7. 모든 회원들의 정보 조회 
 '''
 def addUser(request):
-    return 0
+    if request.method == 'POST':
+        data = json.loads(request.body)
 
-def userInfo(request):
-    return 0
+        personal_key = data.get('personal_key')
+        email = data.get('email')
+        is_leader = data.get('is_leader')
+        hearts = data.get('hearts')
+        password = data.get('password')
+
+        post = Post(
+            personal_key = personal_key,
+            email = email,
+            is_leader = is_leader,
+            hearts = hearts,
+            password = password
+        )
+        post.save()
+        return JsonResponse({'message':'success'})
+    return JsonResponse({'message':'POST 요청만 허용됩니다.'})
+	    
+
+def userInfo(request, personal_key):
+    if request.method == 'GET':
+        post = get_object_or_404(Post, personal_key = personal_key)
+        data = {
+            'id' : post.personal_key,
+            'email' : post.email,
+            'is_leader' : post.is_leader,
+            'hearts' : post.hearts
+        }
+    
+        
 
 def changePwd(request):
     return 0
