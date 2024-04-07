@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 import json
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from .models import *
 
 '''
@@ -58,22 +57,23 @@ def userInfo(request, pk): # 입력값: id (personal_key) -> 출력값: id, emai
         }
         return JsonResponse(data, status = 200)
     else:
-        return JsonResponse({'meassage':'GET 요청만 허용됩니다.'})
+        return JsonResponse({'message':'GET 요청만 허용됩니다.'})
 
 def changePwd(request, pk):
-
     if request.method == 'POST':
         data = json.loads(request.body)
         new_pwd = data.get('new_password', None)
     
-    if new_pwd:
-        post = get_object_or_404(Post, pk=pk)
-        post.password = new_pwd
-        post.save()
+        if new_pwd:
+            post = get_object_or_404(Post, pk=pk)
+            post.password = new_pwd
+            post.save()
 
-        return JsonResponse({'message' : f'비밀번호가 변경되었습니다. 새로운 비밀번호는 {new_pwd}입니다.'})
+            return JsonResponse({'message' : f'비밀번호가 변경되었습니다. 새로운 비밀번호는 {new_pwd}입니다.'})
+        else:
+            return JsonResponse({'message':'비밀번호 변경이 실패하였습니다.'})
     else:
-        return JsonResponse({'message':'비밀번호 변경이 실패하였습니다.'})
+        return JsonResponse({'message':'GET 요청만 허용됩니다.'})
         
 
 def delUser(request):
@@ -95,5 +95,25 @@ def represent(request):
     return 0
 
 def allUser(request):
-    return 0
+    if request.method == 'GET':
+        post = Post.objects.all()
+
+        member_count = 0
+        total_hearts = 0
+
+        for i in range(0, len(post)):
+            member_count += 1
+            total_hearts += post[i].hearts
+        
+        data = {
+            'message' : '전체 회원 정보입니다.',
+            'member_count' : member_count,
+            'total_hearts' : total_hearts
+        }
+
+        return JsonResponse(data, status = 200)
+    else:
+        return JsonResponse({'message':'GET 요청만 허용됩니다.'})
+
+
 
