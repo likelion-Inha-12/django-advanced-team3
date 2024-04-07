@@ -28,7 +28,6 @@ crudmember/models.py
 def addUser(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        pk = data.get('personal_key')
         email = data.get('email')
         is_leader = data.get('is_leader')
         hearts = data.get('hearts')
@@ -36,8 +35,6 @@ def addUser(request):
         user_name = data.get('user_name')
 
         post = Post(
-            data = data,
-            pk = pk,
             email = email,
             is_leader = is_leader,
             hearts = hearts,
