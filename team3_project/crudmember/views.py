@@ -48,9 +48,9 @@ def addUser(request):
     return JsonResponse({'message' : 'POST 요청만 허용됩니다.'})
 
 
-def userInfo(request, personal_key): # 입력값: id (personal_key) -> 출력값: id, email, 대표 여부, 하트 수
+def userInfo(request, pk): # 입력값: id (personal_key) -> 출력값: id, email, 대표 여부, 하트 수
     if request.method == 'GET':
-        post = get_object_or_404(Post, personal_key = personal_key)
+        post = get_object_or_404(Post, pk = pk)
         data = {
             'id' : post.personal_key,
             'email' : post.email,
