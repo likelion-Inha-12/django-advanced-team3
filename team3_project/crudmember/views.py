@@ -105,22 +105,21 @@ def represent(request,pk):
             post.is_leader = False
             post.save()
             data = { 
-                "message" : f"{post.name}의 대표자격을 박탈하였습니다."
+                "message" : f"{post.user_name}의 대표자격을 박탈하였습니다."
             }
             return JsonResponse(data, status=200)
         else:
             if True in Post.objects.values_list('is_leader',flat=True):
                 data = {"message" : "대표는 2명이상일 수 없습니다."}
                 return JsonResponse(data, status=400)
-
                
             else:
                 post.is_Leader = True
                 post.save()
-                data = {"message" : f"{post.name}을 대표로 임명하였습니다."
+                data = {"message" : f"{post.user_name}을 대표로 임명하였습니다."
                         }
+                
                 return JsonResponse(data, status=200)
-
 def allUser(request):
     if request.method == 'GET':
         post = Post.objects.all()
