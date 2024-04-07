@@ -121,6 +121,9 @@ def represent(request,pk):
                         }
                 
                 return JsonResponse(data, status=200)
+    else:
+        return JsonResponse({'message':'PUT 요청만 허용됩니다.'})
+    
 def allUser(request):
     if request.method == 'GET':
         post = Post.objects.all()
