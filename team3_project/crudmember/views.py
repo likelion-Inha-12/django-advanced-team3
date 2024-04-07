@@ -37,6 +37,8 @@ def addUser(request):
         user_name = data.get('user_name')
 
         post = Post(
+
+            name = name,
             email = email,
             is_leader = is_leader,
             hearts = hearts,
@@ -49,9 +51,6 @@ def addUser(request):
     return JsonResponse({'message' : 'POST 요청만 허용됩니다.'})
 
 
-
-	    
-
 def userInfo(request, personal_key): # 입력값: id (personal_key) -> 출력값: id, email, 대표 여부, 하트 수
     if request.method == 'GET':
         post = get_object_or_404(Post, personal_key = personal_key)
@@ -62,8 +61,6 @@ def userInfo(request, personal_key): # 입력값: id (personal_key) -> 출력값
             'hearts' : post.hearts
         }
     
-        
-
 
 def changePwd(request, pk):
 
